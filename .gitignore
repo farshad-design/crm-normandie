@@ -1,0 +1,17 @@
+# Fichiers secrets — NE JAMAIS mettre sur GitHub
+.env.local
+.env
+
+# Next.js
+.next/
+out/
+
+# Node
+node_modules/
+
+# Vercel
+.vercel
+
+# OS
+.DS_Store
+Thumbs.db
