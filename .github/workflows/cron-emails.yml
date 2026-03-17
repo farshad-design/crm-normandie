@@ -1,0 +1,27 @@
+name: Emails automatiques CRM
+on:
+  schedule:
+    - cron: '0 8 * * *'
+  workflow_dispatch:
+jobs:
+  envoyer-emails:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install
+      - run: node --require @anthropic-ai/sdk lib/agents/agent-email.js
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+          AGENT_NOM: ${{ secrets.AGENT_NOM }}
+          AGENT_EMAIL: ${{ secrets.AGENT_EMAIL }}
+          AGENT_TELEPHONE: ${{ secrets.AGENT_TELEPHONE }}
+          AGENT_AGENCE: ${{ secrets.AGENT_AGENCE }}
