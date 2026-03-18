@@ -1,0 +1,42 @@
+# .github/workflows/cron-sms.yml
+# Envoie les SMS de rappel automatiquement chaque jour à 9h
+
+name: SMS automatiques CRM
+
+on:
+  schedule:
+    - cron: '0 9 * * *'   # Tous les jours à 9h00 (UTC)
+  workflow_dispatch:
+
+jobs:
+  envoyer-sms:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Installer les dépendances
+        run: npm install
+
+      - name: Envoyer les SMS de rappel
+        env:
+          NEXT_PUBLIC_SUPABASE_URL:    ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY:   ${{ secrets.SUPABASE_SERVICE_KEY }}
+          ANTHROPIC_API_KEY:           ${{ secrets.ANTHROPIC_API_KEY }}
+          TWILIO_ACCOUNT_SID:          ${{ secrets.TWILIO_ACCOUNT_SID }}
+          TWILIO_AUTH_TOKEN:           ${{ secrets.TWILIO_AUTH_TOKEN }}
+          TWILIO_PHONE:                ${{ secrets.TWILIO_PHONE }}
+          AGENT_NOM:                   ${{ secrets.AGENT_NOM }}
+          AGENT_TELEPHONE:             ${{ secrets.AGENT_TELEPHONE }}
+          AGENT_AGENCE:                ${{ secrets.AGENT_AGENCE }}
+        run: node lib/agents/agent-sms.js
+
+      - name: Résultat
+        run: echo "SMS envoyés avec succès !"
