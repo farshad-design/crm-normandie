@@ -18,14 +18,14 @@ jobs:
       - name: Envoyer emails
         run: node lib/agents/agent-email.js
         env:
-          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          NEXT_PUBLIC_SUPABASE_URL: ${ http://lvyssjfowjxzbkvnhisk.SUPABASE.co }
+          SUPABASE_SERVICE_ROLE_KEY: ${eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx2eXNzamZvd2p4emJrdm5oaXNrIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3MzY1NDcwMiwiZXhwIjoyMDg5MjMwNzAyfQ.wl9QQfbNzLsJqPCOkyMJIGSSyPDB4m0yrmb4a2DRk44}
+          ANTHROPIC_API_KEY: ${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}
           SMTP_HOST: ${{ secrets.SMTP_HOST }}
-          SMTP_PORT: ${{ secrets.SMTP_PORT }}
-          SMTP_USER: ${{ secrets.SMTP_USER }}
-          SMTP_PASS: ${{ secrets.SMTP_PASS }}
-          AGENT_NOM: ${{ secrets.AGENT_NOM }}
-          AGENT_EMAIL: ${{ secrets.AGENT_EMAIL }}
-          AGENT_TELEPHONE: ${{ secrets.AGENT_TELEPHONE }}
-          AGENT_AGENCE: ${{ secrets.AGENT_AGENCE }}
+          SMTP_PORT: ${{ 587 }}
+          SMTP_USER: ${a51330001@smtp-brevo.com}
+          SMTP_PASS: ${ QNJI692gjAmSYy3F }
+          AGENT_NOM: ${ farshad_sahreai }
+          AGENT_EMAIL: ${ farshad.sahraei@megagence.com}
+          AGENT_TELEPHONE: ${0760585693 }
+          AGENT_AGENCE: ${ secrets.AGENT_Megagence}
