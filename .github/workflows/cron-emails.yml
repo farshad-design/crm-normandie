@@ -1,7 +1,5 @@
 name: Emails automatiques CRM
 on:
-  schedule:
-    - cron: '0 8 * * *'
   workflow_dispatch:
 jobs:
   envoyer-emails:
@@ -11,7 +9,14 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Installer dependances
+      - name: Verifier secrets
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          echo "URL definie: ${{ secrets.SUPABASE_URL != '' }}"
+          echo "KEY definie: ${{ secrets.SUPABASE_SERVICE_KEY != '' }}"
+      - name: Installer
         run: npm install
       - name: Envoyer emails
         run: node lib/agents/agent-email.js
@@ -19,11 +24,7 @@ jobs:
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          SMTP_HOST: ${{ secrets.SMTP_HOST }}
-          SMTP_PORT: ${{ secrets.SMTP_PORT }}
-          SMTP_USER: ${{ secrets.SMTP_USER }}
-          SMTP_PASS: ${{ secrets.SMTP_PASS }}
           AGENT_NOM: Farshad Sahraei
           AGENT_EMAIL: farshad.sahraei@megagence.com
           AGENT_TELEPHONE: "07 60 58 56 93"
-          AGENT_AGENCE: Megagence 
+          AGENT_AGENCE: Megagence Normandie
