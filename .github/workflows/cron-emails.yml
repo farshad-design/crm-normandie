@@ -10,12 +10,10 @@ jobs:
         with:
           node-version: '22'
       - name: Verifier secrets
-        env:
-          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
         run: |
-          echo "URL definie: ${{ secrets.SUPABASE_URL != '' }}"
-          echo "KEY definie: ${{ secrets.SUPABASE_SERVICE_KEY != '' }}"
+          echo "SUPABASE_URL defini: ${{ secrets.SUPABASE_URL != '' }}"
+          echo "SERVICE_KEY defini: ${{ secrets.SUPABASE_SERVICE_KEY != '' }}"
+          echo "ANTHROPIC defini: ${{ secrets.ANTHROPIC_API_KEY != '' }}"
       - name: Installer
         run: npm install
       - name: Envoyer emails
