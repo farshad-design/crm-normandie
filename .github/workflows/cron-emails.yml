@@ -6,36 +6,20 @@ on:
 jobs:
   envoyer-emails:
     runs-on: ubuntu-latest
-    env:
-      NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
-      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-      AGENT_NOM: Farshad Sahraei
-      AGENT_EMAIL: farshad.sahraei@megagence.com
-      AGENT_TELEPHONE: "07 60 58 56 93"
-      AGENT_AGENCE: Megagence Normandie
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Verifier
-        run: |
-          echo "Node: $(node --version)"
-          echo "NPM: $(npm --version)"
-          echo "Package: $(cat package.json | head -5)"
-          echo "SUPABASE_URL vide: $([ -z "$NEXT_PUBLIC_SUPABASE_URL" ] && echo OUI || echo NON)"
-      - name: Installer
-        run: npm install --production
-      - name: Lancer agent email
-        run: node lib/agents/agent-email.js
+      - run: npm install
+      - run: node lib/agents/agent-email.js
         env:
-      NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
-      SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
-      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-      AGENT_NOM: Farshad Sahraei
-      AGENT_EMAIL: farshad.sahraei@megagence.com
-      AGENT_TELEPHONE: "07 60 58 56 93"
-      AGENT_AGENCE: Megagence Normandie
+          SUPABASE_URL: https://lvyssjfowjxzbkvnhisk.supabase.co
+          NEXT_PUBLIC_SUPABASE_URL: https://lvyssjfowjxzbkvnhisk.supabase.co
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          AGENT_NOM: Farshad Sahraei
+          AGENT_EMAIL: farshad.sahraei@megagence.com
+          AGENT_TELEPHONE: "07 60 58 56 93"
+          AGENT_AGENCE: Megagence Normandie
