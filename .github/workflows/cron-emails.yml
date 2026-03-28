@@ -1,28 +1,31 @@
 name: Emails automatiques CRM
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '0 8 * * *'
 jobs:
   envoyer-emails:
     runs-on: ubuntu-latest
+    env:
+      NEXT_PUBLIC_SUPABASE_URL: ${{ http://lvyssjfowjxzbkvnhisk.SUPABASE.co  }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx2eXNzamZvd2p4emJrdm5oaXNrIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3MzY1NDcwMiwiZXhwIjoyMDg5MjMwNzAyfQ.wl9QQfbNzLsJqPCOkyMJIGSSyPDB4m0yrmb4a2DRk44}}
+      ANTHROPIC_API_KEY: ${{ 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 }}
+      AGENT_NOM: Farshad Sahraei
+      AGENT_EMAIL: farshad.sahraei@megagence.com
+      AGENT_TELEPHONE: "07 60 58 56 93"
+      AGENT_AGENCE: Megagence Normandie
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Verifier secrets
+      - name: Verifier
         run: |
-          echo "SUPABASE_URL defini: ${{ secrets.SUPABASE_URL != '' }}"
-          echo "SERVICE_KEY defini: ${{ secrets.SUPABASE_SERVICE_KEY != '' }}"
-          echo "ANTHROPIC defini: ${{ secrets.ANTHROPIC_API_KEY != '' }}"
+          echo "Node: $(node --version)"
+          echo "NPM: $(npm --version)"
+          echo "Package: $(cat package.json | head -5)"
+          echo "SUPABASE_URL vide: $([ -z "$NEXT_PUBLIC_SUPABASE_URL" ] && echo OUI || echo NON)"
       - name: Installer
-        run: npm install
-      - name: Envoyer emails
+        run: npm install --production
+      - name: Lancer agent email
         run: node lib/agents/agent-email.js
-        env:
-          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          AGENT_NOM: Farshad Sahraei
-          AGENT_EMAIL: farshad.sahraei@megagence.com
-          AGENT_TELEPHONE: "07 60 58 56 93"
-          AGENT_AGENCE: Megagence Normandie
