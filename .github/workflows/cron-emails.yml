@@ -29,3 +29,13 @@ jobs:
         run: npm install --production
       - name: Lancer agent email
         run: node lib/agents/agent-email.js
+        env:
+      NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+      SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      AGENT_NOM: Farshad Sahraei
+      AGENT_EMAIL: farshad.sahraei@megagence.com
+      AGENT_TELEPHONE: "07 60 58 56 93"
+      AGENT_AGENCE: Megagence Normandie
