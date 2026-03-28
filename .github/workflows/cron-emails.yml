@@ -12,13 +12,18 @@ jobs:
         with:
           node-version: '22'
       - run: npm install
-      - run: node lib/agents/agent-email.js
+      - name: Lancer agent email
+        run: node lib/agents/agent-email.js
         env:
           SUPABASE_URL: https://lvyssjfowjxzbkvnhisk.supabase.co
           NEXT_PUBLIC_SUPABASE_URL: https://lvyssjfowjxzbkvnhisk.supabase.co
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          SMTP_HOST: smtp-relay.brevo.com
+          SMTP_PORT: "587"
+          SMTP_USER: farshad.sahraei@megagence.com
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
           AGENT_NOM: Farshad Sahraei
           AGENT_EMAIL: farshad.sahraei@megagence.com
           AGENT_TELEPHONE: "07 60 58 56 93"
